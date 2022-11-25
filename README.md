@@ -1,1 +1,1 @@
-Full instructions on environment setup and inventorization script implementation are described in here (russian language only).
+Full instructions on environment setup and inventorization script implementation are described in [here](https://vk.com/away.php?utf=1&to=https%3A%2F%2Fdocs.google.com%2Fdocument%2Fd%2F1HxJ86YWJzMRQRYc6xhSHnRrwHZqNWnkgFet6kvs_mLI%2Fedit%3Fusp%3Dsharing) (russian language only).
