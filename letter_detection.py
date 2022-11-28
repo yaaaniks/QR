@@ -21,7 +21,7 @@ def letter_writing(image, let_arr):
                 return False
             elif any(checking_letter in alphabet for checking_letter in char):
                 let_arr.append(char)
-                print("К списку присоединена  ", char)
+                print("К списку присоединена ", char)
                 return True
             else:
                 time.sleep(1)
@@ -39,6 +39,7 @@ def decoding(new_word, word):
                     new_word += alphabet[len(alphabet) + j + shift]
                 else:
                     new_word += alphabet[j + shift]
+    return new_word
 
 
 if __name__ == "__main__":
@@ -56,11 +57,11 @@ if __name__ == "__main__":
                 with open(os.path.join(dirname, file), 'rb+') as f:
                     image = f.read()
                     if letter_writing(image, word):
-                        print("Сейчас список состоит из ", word)
+                        print("Сейчас список состоит из: ", word)
                     else:
                         print("На изображении ничего не найдено")
-            decoding(new_word, word)
-            print(new_word)
+            new_word = decoding(new_word, word)
+            print('После расшифровки получилось ', new_word)
         else:
             print('Такой папки не существует')
     except FileNotFoundError:
