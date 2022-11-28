@@ -9,7 +9,6 @@ networkx==2.8.8
 ninja==1.11.1
 numpy==1.23.5
 opencv-contrib-python==4.6.0.66
-opencv-python-headless==4.5.4.60
 packaging==21.3
 Pillow==9.3.0
 pioneer-sdk==0.4.3
