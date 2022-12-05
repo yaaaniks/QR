@@ -3,32 +3,32 @@ import easyocr
 import os
 
 alphabet = ['А', 'Б', 'В', 'Г', 'Д', 'Е', 'Ё', 'Ж', 'З', 'И', 'Й', 'К', 'Л', 'М', 'Н', 'О', 'П', 'Р',
-            'С', 'Т', 'У', 'Ф', 'Х', 'Ц', 'Ч', 'Ш', 'Щ', 'Ъ', 'Ы', 'Ь', 'Э', 'Ю', 'Я']
+            'С', 'Т', 'У', 'Ф', 'Х', 'Ц', 'Ч', 'Ш', 'Щ', 'Ъ', 'Ы', 'Ь', 'Э', 'Ю', 'Я'] #список с кириллицей
 
 
-def letter_writing(image, let_arr):
+def letter_writing(image, let_arr): #функция по распознаванию и записи букв
     gpu = False
-    reader = easyocr.Reader(['ru'], gpu=gpu)
-    result = reader.readtext(image, detail=0)
+    reader = easyocr.Reader(['ru'], gpu=gpu) #основной метод easyocr
+    result = reader.readtext(image, detail=0) #метод распознавания букв
     if result is None:
         time.sleep(1)
         return None
     else:
         for char in result:
-            if any(checking_char.isdigit() for checking_char in char):
+            if any(checking_char.isdigit() for checking_char in char): #проверка на цифры, если они есть, то флаг False
                 print('На изображении найдена цифра!')
                 time.sleep(1)
                 return False
-            elif any(checking_letter in alphabet for checking_letter in char):
+            elif any(checking_letter in alphabet for checking_letter in char):#проверка на буквы, если есть совпадения True
                 let_arr.append(char)
                 print("К списку присоединена ", char)
                 return True
-            else:
+            else: #если ничего нет, то False
                 time.sleep(1)
                 return False
 
 
-def decoding(new_word, word):
+def decoding(new_word, word): #функция по расшифровке шифра
     for i in range(len(word)):
         for j in range(len(alphabet)):
             if alphabet[j] == word[i]:
@@ -44,19 +44,19 @@ def decoding(new_word, word):
 
 if __name__ == "__main__":
     try:
-        file_shift = open("shift.txt", "r+")
-        shift = int(file_shift.read())
+        file_shift = open("shift.txt", "r+") #получение ключа
+        shift = int(file_shift.read()) #получение ключа
         file_shift.close()
-        dirname = 'Photos'
-        word = []
-        new_word = ''
+        dirname = 'Photos' #путь к снимкам с предыдущей программы
+        word = [] #зашифрованное слово
+        new_word = '' #расшифрованное слово
         if os.path.isdir(dirname):
-            files = os.listdir(dirname)
+            files = os.listdir(dirname) #чтение файлов с изображениями
             print("Получены файлы: ", files)
             for file in files:
                 with open(os.path.join(dirname, file), 'rb+') as f:
                     image = f.read()
-                    if letter_writing(image, word):
+                    if letter_writing(image, word): #проверка на буквы
                         print("Сейчас список состоит из: ", word)
                     else:
                         print("На изображении ничего не найдено")
@@ -64,5 +64,5 @@ if __name__ == "__main__":
             print('После расшифровки получилось ', new_word)
         else:
             print('Такой папки не существует')
-    except FileNotFoundError:
+    except FileNotFoundError: #перехват исключения
         print('Ключа к шифру нет!')
